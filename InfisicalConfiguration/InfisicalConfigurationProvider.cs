@@ -107,7 +107,7 @@ public class InfisicalConfigurationProvider : ConfigurationProvider
 
       var prefix = _config.Prefix ?? "";
 
-      var url = $"{_config.InfisicalUrl}/api/v3/secrets/raw/?environment={_config.Environment}&workspaceId={_config.ProjectId}&secretPath={_config.SecretPath}&include_imports={_config.IncludeImports.ToString().ToLower()}";
+      var url = $"{_config.InfisicalUrl}/api/v3/secrets/raw/?environment={_config.Environment}&workspaceId={_config.ProjectId}&secretPath={_config.SecretPath}&include_imports=true";
 
       var response = await _httpClient.GetAsync(url);
       var content = await response.Content.ReadAsStringAsync();

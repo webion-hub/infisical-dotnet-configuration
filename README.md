@@ -73,9 +73,6 @@ The equivalent of this JSON would be a secret in Infisical with the key `CONNNEC
 **SetPrefix()**
 - `prefix` (string): A string to prefix your secret keys with. Optional, and defaults to no prefix.
 
-**SetIncludeImports()**
-- `includeImports` (boolean): Wether or not to include imports when fetching secrets. Optional, and defaults to `true`.
-
 **SetAuth()**
 - `auth` (InfisicalAuth): The authentication details that will be used for authenticating against the Infisical API. See more details below.
 

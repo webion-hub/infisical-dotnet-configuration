@@ -11,7 +11,6 @@ public class InfisicalConfig
   public string SecretPath { get; }
   public string InfisicalUrl { get; }
   public string Prefix { get; }
-  public bool IncludeImports { get; }
 
   internal InfisicalConfig(
       string environment,
@@ -19,8 +18,8 @@ public class InfisicalConfig
       InfisicalAuth auth,
       string secretPath,
       string infisicalUrl,
-      string prefix,
-      bool includeImports)
+      string prefix
+    )
   {
     Environment = environment;
     ProjectId = projectId;
@@ -28,7 +27,6 @@ public class InfisicalConfig
     SecretPath = secretPath;
     InfisicalUrl = infisicalUrl;
     Prefix = prefix;
-    IncludeImports = includeImports;
   }
 }
 
@@ -40,17 +38,10 @@ public class InfisicalConfigBuilder
   private InfisicalAuth? _auth;
   private string _secretPath = "/";
   private string _infisicalUrl = "https://app.infisical.com";
-  private bool _includeImports = true;
 
   public InfisicalConfigBuilder SetAuth(InfisicalAuth auth)
   {
     _auth = auth;
-    return this;
-  }
-
-  public InfisicalConfigBuilder SetIncludeImports(bool includeImports)
-  {
-    _includeImports = includeImports;
     return this;
   }
 
@@ -98,8 +89,7 @@ public class InfisicalConfigBuilder
         auth: _auth!,
         secretPath: _secretPath,
         infisicalUrl: _infisicalUrl,
-        prefix: _prefix ?? "",
-        includeImports: _includeImports
+        prefix: _prefix ?? ""
     );
   }
 
