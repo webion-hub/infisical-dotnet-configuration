@@ -47,6 +47,11 @@ public class InfisicalConfigurationProvider : ConfigurationProvider
       return UniversalAuthLogin();
     }
 
+    if (authMethod == InfisicalAuthType.AzureCustomProvider)
+    {
+      return AzureAuthLogin();
+    }
+
     throw new InvalidOperationException("AuthType must be set. Are you missing a call to SetUniversalAuth?");
   }
 
@@ -75,6 +80,39 @@ public class InfisicalConfigurationProvider : ConfigurationProvider
     var url = $"{infisicalUrl}/api/v1/auth/universal-auth/login";
 
     var response = new HttpClient().PostAsync(url, content).GetAwaiter().GetResult();
+
+    response.EnsureSuccessStatusCode();
+
+    var machineIdentityLogin = MachineIdentityLogin.Deserialize(
+      response.Content.ReadAsStringAsync().GetAwaiter().GetResult()
+    );
+
+    return machineIdentityLogin.AccessToken;
+  }
+
+  private string AzureAuthLogin()
+  {
+    var auth = _config.Auth;
+
+    if (auth is null)
+    {
+      throw new InvalidOperationException("Auth details not provided");
+    }
+    var azureAuth = auth.GetAzureCustomProviderAuth();
+
+    var body = new
+    {
+      identityId = azureAuth.IdentityId,
+      jwt = azureAuth.TokenProvider().GetAwaiter().GetResult()
+    };
+
+    var bodyJson = JsonSerializer.Serialize(body);
+    var content = new StringContent(bodyJson, Encoding.UTF8, "application/json");
+
+    var response = new HttpClient().PostAsync(
+      $"{_config.InfisicalUrl}/api/v1/auth/azure-auth/login",
+      content
+    ).GetAwaiter().GetResult();
 
     response.EnsureSuccessStatusCode();
 

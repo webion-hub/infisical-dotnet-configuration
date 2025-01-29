@@ -12,13 +12,6 @@ public class UniversalAuthCredentials
   }
 }
 
-
-public class AzureCustomProviderAuthOptions
-{
-  public string IdentityId { get; set; } = string.Empty;
-  public Func<Task<string>> TokenProvider { get; set; } = null!;
-}
-
 public class AzureCustomProviderAuthCredentials
 {
   public string IdentityId { get; private set; }
@@ -114,22 +107,19 @@ public class InfisicalAuthBuilder
     return this;
   }
 
-  public InfisicalAuthBuilder SetAzureCustomProviderAuth(Action<AzureCustomProviderAuthOptions> configure)
+  public InfisicalAuthBuilder SetAzureCustomProviderAuth(string identityId, Func<Task<string>> tokenProvider)
   {
-    var options = new AzureCustomProviderAuthOptions();
-    configure(options);
-
-    if (string.IsNullOrEmpty(options.IdentityId))
+    if (string.IsNullOrEmpty(identityId))
     {
       throw new InvalidOperationException("IdentityId must be set");
     }
 
-    if (options.TokenProvider == null)
+    if (tokenProvider == null)
     {
       throw new InvalidOperationException("TokenProvider must be set");
     }
 
-    _auth.SetAzureCustomProviderAuthCredentials(new AzureCustomProviderAuthCredentials(options.IdentityId, options.TokenProvider));
+    _auth.SetAzureCustomProviderAuthCredentials(new AzureCustomProviderAuthCredentials(identityId, tokenProvider));
     return this;
   }
 
@@ -155,8 +145,6 @@ public class InfisicalAuthBuilder
         {
           throw new InvalidOperationException("TokenProvider must be set");
         }
-
-        azureCustomProviderAuth.TokenProvider().Wait();
 
         break;
       default:
