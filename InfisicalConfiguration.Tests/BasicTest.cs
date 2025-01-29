@@ -1,6 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using Azure.Identity;
+using Azure.Core;
+
 namespace InfisicalConfiguration.Tests;
 
 [TestClass]
@@ -24,10 +27,29 @@ public class SystemTests
             .SetInfisicalUrl("http://localhost:8080")
             .SetAuth(
                 new InfisicalAuthBuilder()
-                    .SetUniversalAuth(
-                        "<machine-identity-client-id>",
-                        "<machine-identity-client-secret>"
-                    )
+                    .SetAzureCustomProviderAuth(options =>
+                    {
+                      options.IdentityId = "<identity-id>";
+                      options.TokenProvider = async () =>
+                      {
+                        // From Azure package: Used to get credentials from Azure CLI
+                        var cliCredential = new VisualStudioCredential();
+
+                        // Get JWT token from Azure CLI
+                        var token = await cliCredential.GetTokenAsync(
+                            new TokenRequestContext(
+                                ["https://management.azure.com/.default"]
+                            ),
+                            CancellationToken.None
+                        );
+
+                        // JWT token can be used to authenticate with Infisical
+
+                        Console.WriteLine("Token: " + token.Token);
+
+                        return token.Token;
+                      };
+                    })
                     .Build()
             )
             .Build()
