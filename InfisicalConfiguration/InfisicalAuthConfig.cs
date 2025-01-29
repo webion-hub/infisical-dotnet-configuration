@@ -76,7 +76,7 @@ public class InfisicalAuth
       return azureCustomProviderAuthCredentials;
     }
 
-    throw new InvalidOperationException("AuthType must be set. Are you missing a call to SetAzureCustomProviderAuth?");
+    throw new InvalidOperationException("AuthType must be set. Are you missing a call to SetAzureAuth?");
   }
 
   internal void SetUniversalAuthCredentials(UniversalAuthCredentials credentials)
@@ -85,7 +85,7 @@ public class InfisicalAuth
     AuthType = InfisicalAuthType.Universal;
   }
 
-  internal void SetAzureCustomProviderAuthCredentials(AzureCustomProviderAuthCredentials credentials)
+  internal void SetAzureAuthCredentials(AzureCustomProviderAuthCredentials credentials)
   {
     azureCustomProviderAuthCredentials = credentials;
     AuthType = InfisicalAuthType.AzureCustomProvider;
@@ -107,7 +107,7 @@ public class InfisicalAuthBuilder
     return this;
   }
 
-  public InfisicalAuthBuilder SetAzureCustomProviderAuth(string identityId, Func<Task<string>> tokenProvider)
+  public InfisicalAuthBuilder SetAzureAuth(string identityId, Func<Task<string>> tokenProvider)
   {
     if (string.IsNullOrEmpty(identityId))
     {
@@ -119,7 +119,7 @@ public class InfisicalAuthBuilder
       throw new InvalidOperationException("TokenProvider must be set");
     }
 
-    _auth.SetAzureCustomProviderAuthCredentials(new AzureCustomProviderAuthCredentials(identityId, tokenProvider));
+    _auth.SetAzureAuthCredentials(new AzureCustomProviderAuthCredentials(identityId, tokenProvider));
     return this;
   }
 
@@ -148,7 +148,7 @@ public class InfisicalAuthBuilder
 
         break;
       default:
-        throw new InvalidOperationException("AuthType must be set. Are you missing a call to SetUniversalAuth or SetAzureCustomProviderAuth?");
+        throw new InvalidOperationException("AuthType must be set. Are you missing a call to SetUniversalAuth or SetAzureAuth?");
     }
 
     return auth;
