@@ -95,7 +95,7 @@ The following example assumes that you are logged into Visual Studio with your E
 Instead of using `VisualStudioCredential()`, you can also use the following token providers.
 - `AzureCliCredential()`: Fetches Entra credentials from the CLI.
 - `VisualStudioCodeCredential()`: Fetches Entra credentials from Visual Studio Code.
-- `DefaultAzureCredential()`: Tries to fetch Entra credentials from multiple sources on your machine. Sources include Environment variables, Managed identity credentials, Azure CLI, PowerShell, Visual Studio, Visual Studio Code, and more. You can read more [here].(https://learn.microsoft.com/en-us/dotnet/api/azure.identity.defaultazurecredential?view=azure-dotnet)
+- `DefaultAzureCredential()`: Tries to fetch Entra credentials from multiple sources on your machine. Sources include Environment variables, Managed identity credentials, Azure CLI, PowerShell, Visual Studio, Visual Studio Code, and more. You can read more [here](https://learn.microsoft.com/en-us/dotnet/api/azure.identity.defaultazurecredential?view=azure-dotnet).
 
 ```csharp
 .SetAuth(
