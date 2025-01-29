@@ -93,7 +93,7 @@ The equivalent of this JSON would be a secret in Infisical with the key `CONNNEC
 The following example assumes that you are logged into Visual Studio with your Entra account. The identity used for authentication must have the same Tenet ID as the directory that you are logged into in Visual Studio.
 
 Instead of using `VisualStudioCredential()`, you can also use the following token providers.
-- `AzureCliCredential()`: Fetches Entra credentials from the CLI
+- `AzureCliCredential()`: Fetches Entra credentials from the CLI.
 - `VisualStudioCodeCredential()`: Fetches Entra credentials from Visual Studio Code.
 - `DefaultAzureCredential()`: Tries to fetch Entra credentials from multiple sources on your machine. Sources include Environment variables, Managed identity credentials, Azure CLI, PowerShell, Visual Studio, Visual Studio Code, and more. You can read more [here].(https://learn.microsoft.com/en-us/dotnet/api/azure.identity.defaultazurecredential?view=azure-dotnet)
 
