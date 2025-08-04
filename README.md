@@ -8,6 +8,8 @@ This is a .NET library that makes it easy to use the [.NET configuration system]
 
 ```shell
 dotnet add package Infisical.IConfigurationProvider
+
+dotnet add package Webion.Extensions.Configuration.Infisical # for this patch
 ```
 
 ## Example usage

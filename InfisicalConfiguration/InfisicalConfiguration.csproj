@@ -5,6 +5,19 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <OutputType>Library</OutputType>
+        <IsPackable>true</IsPackable>
+
+        <Version>1.0.0</Version>
+        <PackageId>Webion.Extensions.Configuration.Infisical</PackageId>
+        <Title>Webion.Extensions.Configuration.Infisical</Title>
+        <Authors>Webion SRL</Authors>
+        <Description>Small update on top of the official library, in order to support recursive retrieval of the secrets.</Description>
+        <PackageLicense>https://licenses.nuget.org/MIT</PackageLicense>
+        <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/webion-hub/infisical-dotnet-configuration</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
